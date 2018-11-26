@@ -21,11 +21,11 @@
 			<table class = "style">
 				<tr>
 					<td>ログインID</td>
-					<td><input type = "text" Id = "ログインID"></td>
+					<td><input type = "text" name = "loginId" loginId= "ログインID"></td>
 				</tr>
 				<tr>
 					<td>ユーザー名</td>
-					<td><input type = "text" UserName = "ユーザー名"></td>
+					<td><input type = "text" name = "userName" userName = "ユーザー名"></td>
 				</tr>
 				<tr>
 					<td>生年月日</td>

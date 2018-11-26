@@ -1,0 +1,13 @@
+@charset "UTF-8";
+.UserList{
+	text-align:center;
+}
+.position{
+	text-align:right;
+}
+.out{
+	position:absolute;top:0%;right:0%;
+}
+.style{
+	margin:auto;
+}

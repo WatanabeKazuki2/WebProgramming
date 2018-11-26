@@ -1,0 +1,20 @@
+@charset "UTF-8";
+.UserEntry{
+	text-align:center;
+}
+.ProductTable {
+    border: solid 1px #000000;
+    border-collapse: separate;
+    border-spacing: 8px 0px;
+}
+
+.ProductTable td {
+    border: solid 1px #000000;
+    border: solid 1px #007275;
+}
+.out{
+	position:absolute;top:0%;right:0%;
+}
+.style{
+	margin:auto;
+}
