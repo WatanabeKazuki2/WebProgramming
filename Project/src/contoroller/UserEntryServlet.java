@@ -1,15 +1,18 @@
 package contoroller;
 
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import dao.UserDao;
-import model.User;
+import dao.DBManager;
 
 /**
  * Servlet implementation class UserEntryServlet
@@ -30,8 +33,11 @@ public class UserEntryServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
-	}
+		// フォワード
+		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/UserEntry.jsp");
+		dispatcher.forward(request, response);
+		}
+
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
@@ -41,15 +47,36 @@ public class UserEntryServlet extends HttpServlet {
 		//リクエストパラメーターの文字コードを指定
 		request.setCharacterEncoding("UTF-8");
 
-		//リクエストパラメーターの入力項目を取得
-		String loginId = request.getParameter("loginId");
-		String password = request.getParameter("loginId");
-		String userName = request.getParameter("userName");
-		String birthday = request.getParameter("birthday");
 
-		//リクエストパラメーターの入力項目を引数に渡して、Daoのメソッドを実行
-		UserDao userDao = new UserDao();
-		User user = userDao.findByLoginInfo(loginId, password);
+		//jspのデータをセット
+		String loginId = request.getParameter("loginId");
+		String name = request.getParameter("userName");
+		String password = request.getParameter("password");
+		String birthDate = request.getParameter("birthDate");
+
+		Connection connn = null;
+		try {
+		//データベースへ接続
+		connn = DBManager.getConnection();
+
+		//INSERT文を準備
+		String sql = "INSERT INTO user (login_id ,name,birth_date,password,create_date,update_date)VALUES(?,?,?,?,now(),now())";
+
+		//INSERT文に内容を入れる
+		PreparedStatement pStmt = connn.prepareStatement(sql);
+		pStmt.setString(1, loginId);
+		pStmt.setString(2, name);
+		pStmt.setString(3, birthDate);
+		pStmt.setString(4, password);
+
+
+		pStmt.executeUpdate();
+
+		pStmt.close();
+		}catch(SQLException e){
+			e.printStackTrace();
+		}
+		response.sendRedirect("UserListServlet");
 	}
 
 }

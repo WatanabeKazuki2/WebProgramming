@@ -5,7 +5,7 @@
 <html>
 <head>
 	<meta charset="UTF-8">
-	<link rel="stylesheet" href="UserReference.css">
+	<link rel="stylesheet" href="css/UserReference.css">
 	<title>UserInfo</title>
 </head>
 	<body>
@@ -19,24 +19,24 @@
 		<table class = "style">
 			<tr>
 				<td>ログインID</td>
-				<td>id001</td>
+				<td>${user.loginId}</td>
 			</tr>
 			<tr>
 				<td>ユーザー名</td>
-				<td>name</td>
+				<td>${user.name}</td>
 			</tr>
 			<tr>
 				<td>生年月日</td>
-				<td>1990年1月1日</td>
+				<td>${user.birthdate}</td>
 			</tr>
 			<tr>
 				<td>登録日時</td>
-				<td>2018年01月01日10:00</td>
+				<td>${user.createDate}</td>
 			</tr>
 			<tr>
 				<td>更新日時</td>
-				<td>2018年02月01日10:00</td>
+				<td>${user.updateDate}</td>
 		</table>
-		<a href = "URL">戻る</a>
+		<a href = "UserListServlet">戻る</a>
 	</body>
 </html>

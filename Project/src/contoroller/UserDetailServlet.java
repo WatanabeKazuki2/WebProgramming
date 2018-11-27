@@ -2,6 +2,7 @@ package contoroller;
 
 import java.io.IOException;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -36,8 +37,11 @@ public class UserDetailServlet extends HttpServlet {
 
 		// TODO  未実装：idを引数にして、idに紐づくユーザ情報を出力する
 
+
 		// TODO  未実装：ユーザ情報をリクエストスコープにセットしてjspにフォワード
 
+		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/UserReference.jsp");
+		dispatcher.forward(request, response);
 	}
 
 

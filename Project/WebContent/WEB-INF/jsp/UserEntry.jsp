@@ -13,34 +13,34 @@
 		<table class = out>
 			<tr>
 				<td>ユーザー名</td>
-				<td><a href = "Login">ログアウト</a></td>
+				<td><a href = "LogoutServlet">ログアウト</a></td>
 			</tr>
 		</table>
-		<form>
+		<form action = "UserEntryServlet" method = "post">
 			<table class="style">
 				<tr>
 					<td>ログインID</td>
-					<td><input type = text Id = "ログインID"></td>
+					<td><input type = text name ="loginId" loginId= "ログインID"></td>
 				</tr>
 				<tr>
 					<td>パスワード</td>
-					<td><input type = text Password = "パスワード"></td>
+					<td><input type = text name = "password" password= "パスワード"></td>
 				</tr>
 				<tr>
 					<td>パスワード(確認)</td>
-					<td><input type = text Password = "パスワード"></td>
+					<td><input type = text password = "パスワード"></td>
 				</tr>
 				<tr>
 					<td>ユーザー名</td>
-					<td><input type=text UserName = "ユーザー名"></td>
+					<td><input type=text name = "userName" userName = "ユーザー名"></td>
 				</tr>
 				<tr>
 					<td>生年月日</td>
-					<td><input type=text Birthday = "生年月日"></td>
+					<td><input type=text name = "birthDate" bitrhDate = "生年月日"></td>
 				</tr>
 			</table>
 			<p class = "UserEntry"><input type="submit" value="登録"></p>
 		</form>
-		<a href = "URL">戻る</a>
+		<a href = "UserListServlet">戻る</a>
 	</body>
 </html>
