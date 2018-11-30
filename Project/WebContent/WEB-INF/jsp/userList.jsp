@@ -5,7 +5,7 @@
 <html>
 <head>
 	<meta charset="UTF-8">
-	<link rel="stylesheet" href="/css/UserList.css">
+	<link rel="stylesheet" href="css/UserList.css">
 	<title>User List</title>
 </head>
 	<body>
@@ -48,9 +48,9 @@
                      <td>${user.name}</td>
                      <td>${user.birthDate}</td>
 					<td>
-						<a href="UserDetailServlet?id=${userList}"><input type="submit" value="詳細"></a>
-						<a href="UserUpdateServlet?id=${userList}"></a><input type="submit" value = "更新">
-						<a href="UserDeleteServlet?id=${userList}"></a><input type="submit" value = "削除">
+						<a href="UserDetailServlet?id=${user.id}"><button type="button">詳細</button></a>
+						<a href="UserUpdateServlet?id=${user.id}"><button type="button">更新</button></a>
+						<a href="UserDeleteServlet?id=${user.id}"><button type="button">削除</button></a>
 					</td>
 				</tr>
 				</c:forEach>

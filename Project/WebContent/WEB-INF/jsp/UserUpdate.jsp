@@ -5,42 +5,48 @@
 <html>
 <head>
 	<meta charset="UTF-8">
-	<link rel="stylesheet" href="UserUpdate.css">
+	<link rel="stylesheet" href="/css/UserUpdate.css">
 	<title>Update</title>
 </head>
 	<body>
 		<h1 class="UserUpdate">ユーザー情報更新</h1>
 		<table class = out>
+		<c:if test="${errMsg != null}" >
+	    <div class="UserEntry color">
+		  ${errMsg}
+		</div>
+		</c:if>
 			<tr>
-				<td>ユーザー名</td>
-				<td><a href = "Login">ログアウト</a></td>
+				<td>${user.name }</td>
+				<td><a href = "LogoutServlet">ログアウト</a></td>
 			</tr>
 		</table>
-		<form>
+		<form action = "UserUpdateServlet" method = "post">
+			<input type = "hidden" name = "id" value = "${userUpdate.id}">
 			<table class = "style">
 				<tr>
 					<td>ログインID </td>
-					<td><input type = "text" Id = "ログインID"></td>
+					<td>${userUpdate.loginId}</td>
 				</tr>
 				<tr>
 					<td>パスワード</td>
-					<td><input type = "text" Password = "パスワード"></td>
+					<td><input type = "text" name="password" password = "パスワード">
 				</tr>
 				<tr>
 					<td>パスワード確認</td>
-				 	<td><input type = "text" Password = "パスワード"></td>
+				 	<td><input type = "text" name="password2" password2 = "パスワード"></td>
 				 </tr>
 				 <tr>
 					<td>ユーザ名</td>
-					<td><input type = "text" UserName ="ユーザー名"></td>
+					<td><input type = "text" value="${userUpdate.name}" name = "userName" userName ="ユーザー名"></td>
 				</tr>
 				<tr>
 					<td>生年月日</td>
-					<td><input type = "text" Birthday ="生年月日"></td>
+					<td><input type = "text" value="${userUpdate.birthDate}" name = "birthDate" birthDate ="生年月日"></td>
 				</tr>
 			</table>
-			<p class = "UserUpdate"><input type = "submit" value = "更新"></p>
+			<p class = "UserUpdate"><a href = "UserListServlet"></a><input type ="submit" value ="更新" ></p>
 		</form>
-		<a href = "URL">戻る</a>
+		<a href = "UserListServlet">戻る</a>
 	</body>
 </html>

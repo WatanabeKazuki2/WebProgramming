@@ -1,9 +1,10 @@
 package contoroller;
 
 import java.io.IOException;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -11,8 +12,10 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.xml.bind.DatatypeConverter;
 
-import dao.DBManager;
+import dao.UserDao;
+import model.User;
 
 /**
  * Servlet implementation class UserEntryServlet
@@ -21,12 +24,12 @@ import dao.DBManager;
 public class UserEntryServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public UserEntryServlet() {
-        super();
-    }
+	/**
+	 * @see HttpServlet#HttpServlet()
+	 */
+	public UserEntryServlet() {
+		super();
+	}
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
@@ -36,7 +39,7 @@ public class UserEntryServlet extends HttpServlet {
 		// フォワード
 		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/UserEntry.jsp");
 		dispatcher.forward(request, response);
-		}
+	}
 
 
 	/**
@@ -46,37 +49,52 @@ public class UserEntryServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		//リクエストパラメーターの文字コードを指定
 		request.setCharacterEncoding("UTF-8");
-
-
 		//jspのデータをセット
 		String loginId = request.getParameter("loginId");
 		String name = request.getParameter("userName");
 		String password = request.getParameter("password");
+		String password2 = request.getParameter("password2");
 		String birthDate = request.getParameter("birthDate");
 
-		Connection connn = null;
+
 		try {
-		//データベースへ接続
-		connn = DBManager.getConnection();
+			UserDao userDao = new UserDao();
+			User user;
+			user = userDao.findByLoginInfo(loginId);
 
-		//INSERT文を準備
-		String sql = "INSERT INTO user (login_id ,name,birth_date,password,create_date,update_date)VALUES(?,?,?,?,now(),now())";
+		if(loginId.equals("") || name.equals("") || password.equals("") || birthDate.equals("")|| !(password.equals(password2))||user!=null){
+			request.setAttribute("errMsg", "入力された内容は正しくありません");
+			// ログインjspにフォワード
+			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/UserEntry.jsp");
+			dispatcher.forward(request, response);
+			return;
+		}
 
-		//INSERT文に内容を入れる
-		PreparedStatement pStmt = connn.prepareStatement(sql);
-		pStmt.setString(1, loginId);
-		pStmt.setString(2, name);
-		pStmt.setString(3, birthDate);
-		pStmt.setString(4, password);
+		userDao.entlyUser(loginId,name,birthDate,password);
 
 
-		pStmt.executeUpdate();
-
-		pStmt.close();
-		}catch(SQLException e){
+		response.sendRedirect("UserListServlet");
+		} catch (NoSuchAlgorithmException e) {
+			// TODO 自動生成された catch ブロック
 			e.printStackTrace();
 		}
-		response.sendRedirect("UserListServlet");
 	}
 
+	public static String angou(String ps) throws NoSuchAlgorithmException {
+		//ハッシュを生成したい元の文字列
+		String source = ps;
+		//ハッシュ生成前にバイト配列に置き換える際のCharset
+		Charset charset = StandardCharsets.UTF_8;
+		//ハッシュアルゴリズム
+		String algorithm = "MD5";
+
+		//ハッシュ生成処理
+		byte[] bytes = MessageDigest.getInstance(algorithm).digest(source.getBytes(charset));
+		String result = DatatypeConverter.printHexBinary(bytes);
+		return result;
+	}
+
+
 }
+
+

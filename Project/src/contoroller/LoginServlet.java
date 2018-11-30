@@ -1,6 +1,7 @@
 package contoroller;
 
 import java.io.IOException;
+import java.security.NoSuchAlgorithmException;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -59,7 +60,7 @@ public class LoginServlet extends HttpServlet {
 		// リクエストパラメータの入力項目を取得
 		String loginId = request.getParameter("loginId");
 		String password = request.getParameter("password");
-
+		try {
 		// リクエストパラメータの入力項目を引数に渡して、Daoのメソッドを実行
 		UserDao userDao = new UserDao();
 		User user = userDao.findByLoginInfo(loginId, password);
@@ -82,6 +83,9 @@ public class LoginServlet extends HttpServlet {
 
 		// ユーザ一覧のサーブレットにリダイレクト
 		response.sendRedirect("UserListServlet");
+		}catch(NoSuchAlgorithmException e) {
+			e.printStackTrace();
+		}
 
 	}
 

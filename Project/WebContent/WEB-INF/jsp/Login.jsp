@@ -10,6 +10,7 @@
 </head>
 	<body>
 		<h1 class="login">ログイン画面</h1>
+		<p class = "position"><a href ="UserEntryServlet" class = "position">新規登録</a></p>
 			<form action="LoginServlet" method="post">
 				<table class="style">
 					<tr>

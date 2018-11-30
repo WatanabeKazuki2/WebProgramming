@@ -20,3 +20,4 @@ INSERT INTO user
 VALUES
 ('player','ƒ|ƒ€ƒ|ƒ€','2017-01-01','password','2018-11-03','2018-11-06');
 
+UPDATE user SET password = '5F4DCC3B5AA765D61D8327DEB882CF99';

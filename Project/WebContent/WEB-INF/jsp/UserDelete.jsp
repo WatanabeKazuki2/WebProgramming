@@ -5,23 +5,27 @@
 <html>
 <head>
 	<meta charset="UTF-8">
-	<link rel="stylesheet" href="UserDelete.css">
+	<link rel="stylesheet" href="css/UserDelete.css">
 	<title>Insert title here</title>
 </head>
 	<body>
 		<h1 class="UserDelete">ユーザー削除確認</h1>
+		<form action="UserDelete" method="post">
+		<input type = "hidden" name = "id" value = "${userDelete.id}">
 		<table class = out>
 			<tr>
 				<td>ユーザー名</td>
-				<td><a href = "Login">ログアウト</a></td>
+				<td><a href = "LogotuServlet">ログアウト</a></td>
 			</tr>
 		</table>
-		<p class = "UserDelete">ログインID："ログインID"</p>
+		<p class = "UserDelete">ログインID："${userDelete.loginId}"</p>
 		<p class = "UserDelete">を本当に削除してもよろしいでしょうか。</p>
 		<table class="style">
 			<tr>
-				<td><input type = "submit" value = "キャンセル"></td>
-				<td><input type = "submit" value = "OK"></td>
+				<td><a href = "UserListServlet"> <button type = button >キャンセル</button></a></td>
+				<td><input type="submit" value = "OK"></td>
+			</tr>
 		</table>
+		</form>
 	</body>
 </html>

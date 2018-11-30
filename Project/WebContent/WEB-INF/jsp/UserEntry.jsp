@@ -5,14 +5,21 @@
 <html>
 <head>
 	<meta charset="UTF-8">
-	<link rel="stylesheet" href="UserEntry.css">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>ユーザー登録画面</title>
+	<link rel="stylesheet" href="css/UserEntry.css">
 </head>
 	<body>
+
 		<h1 class = "UserEntry">ユーザー新規登録</h1>
-		<table class = out>
+		<c:if test="${errMsg != null}" >
+	    <div class="UserEntry color">
+		  ${errMsg}
+		</div>
+		</c:if>
+		<table class = "out">
 			<tr>
-				<td>ユーザー名</td>
+				<td> </td>
 				<td><a href = "LogoutServlet">ログアウト</a></td>
 			</tr>
 		</table>
@@ -28,7 +35,7 @@
 				</tr>
 				<tr>
 					<td>パスワード(確認)</td>
-					<td><input type = text password = "パスワード"></td>
+					<td><input type = text name = "password2" password2 = "パスワード"></td>
 				</tr>
 				<tr>
 					<td>ユーザー名</td>

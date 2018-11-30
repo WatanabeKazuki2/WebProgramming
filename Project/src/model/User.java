@@ -16,10 +16,25 @@ public class User {
 	private String createDate;
 	private String updateDate;
 
+	//引数なしのコンストラクタ
+	public User () {
+
+	}
+
 	// ログインセッションを保存するためのコンストラクタ
 	public User(String loginId, String name) {
 		this.loginId = loginId;
 		this.name = name;
+	}
+
+	//参照するページのコンストラクタ
+	public User(String loginId,String name,Date birthDate,String createDate,String updateDate) {
+		this.loginId = loginId;
+		this.name = name;
+		this.birthDate = birthDate;
+		this.createDate = createDate;
+		this.updateDate = updateDate;
+
 	}
 
 	// 全てのデータをセットするコンストラクタ
@@ -33,6 +48,7 @@ public class User {
 		this.createDate = createDate;
 		this.updateDate = updateDate;
 	}
+
 	public int getId() {
 		return id;
 	}

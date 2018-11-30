@@ -21,7 +21,7 @@ public class DBManager {
         Connection con = null;
         try {
             Class.forName("com.mysql.jdbc.Driver");
-            con = DriverManager.getConnection(URL+DB_NAME,USER,PASS);
+            con = DriverManager.getConnection(URL+DB_NAME+"?useUnicode=true&characterEncoding=utf8" ,USER,PASS);
         } catch (SQLException | ClassNotFoundException e) {
             e.printStackTrace();
         }
