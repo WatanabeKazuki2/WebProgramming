@@ -22,7 +22,8 @@ public class User {
 	}
 
 	// ログインセッションを保存するためのコンストラクタ
-	public User(String loginId, String name) {
+	public User(int id,String loginId, String name) {
+		this.id = id;
 		this.loginId = loginId;
 		this.name = name;
 	}

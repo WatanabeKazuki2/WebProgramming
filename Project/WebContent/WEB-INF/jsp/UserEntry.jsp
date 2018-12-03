@@ -19,7 +19,7 @@
 		</c:if>
 		<table class = "out">
 			<tr>
-				<td> </td>
+				<td>${userInfo.name} </td>
 				<td><a href = "LogoutServlet">ログアウト</a></td>
 			</tr>
 		</table>

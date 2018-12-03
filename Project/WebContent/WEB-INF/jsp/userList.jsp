@@ -13,11 +13,11 @@
 		<p class = "position"><a href ="UserEntryServlet" class = "position">新規登録</a></p>
 		<table class = "out">
 			<tr>
-				<td>ユーザー名</td>
+				<td>${userInfo.name}</td>
 				<td><a href = "LogoutServlet">ログアウト</a></td>
 			</tr>
 		</table>
-		<form action = "UserListServlet" method = "post">
+		<form action = "UserListServlet" method = "post" action = "LoginServlet" method = "post">
 			<table class = "style">
 				<tr>
 					<td>ログインID</td>
@@ -42,15 +42,27 @@
 				</tr>
 			</thead>
 				<tbody>
-				<c:forEach var = "user" items = "${userList}">
+				<c:forEach var = "use" items = "${userList}">
+				<input type = "hidden" name = "id" id = {use.id}>
 				<tr>
-					<td>${user.loginId}</td>
-                     <td>${user.name}</td>
-                     <td>${user.birthDate}</td>
+					<td>${use.loginId}</td>
+                     <td>${use.name}</td>
+                     <td>${use.birthDate}</td>
 					<td>
-						<a href="UserDetailServlet?id=${user.id}"><button type="button">詳細</button></a>
-						<a href="UserUpdateServlet?id=${user.id}"><button type="button">更新</button></a>
-						<a href="UserDeleteServlet?id=${user.id}"><button type="button">削除</button></a>
+					<c:choose>
+					<c:when test = "${userInfo.id == 1}">
+						<a href="UserDetailServlet?id=${use.id}"><button type="button">詳細</button></a>
+						<a href="UserUpdateServlet?id=${use.id}"><button type="button">更新</button></a>
+						<a href="UserDeleteServlet?id=${use.id}"><button type="button">削除</button></a>
+					</c:when>
+					<c:when test = "${use.id == userInfo.id}">
+						<a href="UserDetailServlet?id=${use.id}"><button type="button">詳細</button></a>
+						<a href="UserUpdateServlet?id=${use.id}"><button type="button">更新</button></a>
+					</c:when>
+					<c:otherwise>
+						<a href="UserDetailServlet?id=${use.id}"><button type="button">詳細</button></a>
+					</c:otherwise>
+					</c:choose>
 					</td>
 				</tr>
 				</c:forEach>

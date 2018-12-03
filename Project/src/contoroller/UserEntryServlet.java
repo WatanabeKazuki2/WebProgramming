@@ -12,6 +12,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.xml.bind.DatatypeConverter;
 
 import dao.UserDao;
@@ -47,6 +48,12 @@ public class UserEntryServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		//ログインセッションがない場合ログイン画面にリダイレクト
+				HttpSession session = request.getSession();
+				if(session.getAttribute("userInfo") == null) {
+					response.sendRedirect("LoginServlet");
+				}else {
+
 		//リクエストパラメーターの文字コードを指定
 		request.setCharacterEncoding("UTF-8");
 		//jspのデータをセット
@@ -79,7 +86,7 @@ public class UserEntryServlet extends HttpServlet {
 			e.printStackTrace();
 		}
 	}
-
+	}
 	public static String angou(String ps) throws NoSuchAlgorithmException {
 		//ハッシュを生成したい元の文字列
 		String source = ps;

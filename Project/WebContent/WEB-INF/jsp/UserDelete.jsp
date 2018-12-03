@@ -10,11 +10,11 @@
 </head>
 	<body>
 		<h1 class="UserDelete">ユーザー削除確認</h1>
-		<form action="UserDelete" method="post">
+		<form action="UserDeleteServlet" method="post">
 		<input type = "hidden" name = "id" value = "${userDelete.id}">
 		<table class = out>
 			<tr>
-				<td>ユーザー名</td>
+				<td>${userInfo.name}</td>
 				<td><a href = "LogotuServlet">ログアウト</a></td>
 			</tr>
 		</table>

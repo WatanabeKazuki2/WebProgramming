@@ -9,6 +9,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import dao.UserDao;
 import model.User;
@@ -20,32 +21,38 @@ import model.User;
 public class UserDeleteServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public UserDeleteServlet() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
+	/**
+	 * @see HttpServlet#HttpServlet()
+	 */
+	public UserDeleteServlet() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int id = Integer.parseInt(request.getParameter("id"));
-		UserDao userDao = new UserDao();
-		try {
-			User user = userDao.findByLoginInfo(id);
+		//ログインセッションがない場合ログイン画面にリダイレクト
+		HttpSession session = request.getSession();
+		if(session.getAttribute("userInfo") == null) {
+			response.sendRedirect("LoginServlet");
+		}else {
 
-			request.setAttribute("userDelete", user);
+			int id = Integer.parseInt(request.getParameter("id"));
+			UserDao userDao = new UserDao();
+			try {
+				User user = userDao.findByLoginInfo(id);
 
-			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/UserDelete.jsp");
-			dispatcher.forward(request, response);
+				request.setAttribute("userDelete", user);
 
-		}catch(NoSuchAlgorithmException e){
-			e.printStackTrace();
+				RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/UserDelete.jsp");
+				dispatcher.forward(request, response);
+
+			}catch(NoSuchAlgorithmException e){
+				e.printStackTrace();
+			}
 		}
-
 	}
 
 	/**

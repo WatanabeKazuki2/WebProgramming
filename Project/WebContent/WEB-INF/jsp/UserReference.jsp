@@ -12,7 +12,7 @@
 		<h1 class = "UserReference">ユーザー情報詳細参照</h1>
 		<table class = out>
 			<tr>
-				<td>ユーザー名</td>
+				<td>${userInfo.name}</td>
 				<td><a href = "LogoutServlet">ログアウト</a></td>
 			</tr>
 		</table>

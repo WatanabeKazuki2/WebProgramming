@@ -37,10 +37,12 @@ public class LoginServlet extends HttpServlet {
 
 		// TODO 未実装：ログインセッションがある場合、ユーザ一覧画面にリダイレクトさせる
 
-		HttpSession session = request.getSession(false);
+		HttpSession session = request.getSession();
 
-		if(session == null) {
-			response.sendRedirect("LoginServlet");
+
+		if(session.getAttribute("userInfo") != null) {
+			response.sendRedirect("UserLsitServlet");
+
 		}
 		else {
 		// フォワード

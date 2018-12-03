@@ -5,7 +5,7 @@
 <html>
 <head>
 	<meta charset="UTF-8">
-	<link rel="stylesheet" href="/css/UserUpdate.css">
+	<link rel="stylesheet" href="css/UserUpdate.css">
 	<title>Update</title>
 </head>
 	<body>
@@ -17,7 +17,7 @@
 		</div>
 		</c:if>
 			<tr>
-				<td>${user.name }</td>
+				<td>${userInfo.name}</td>
 				<td><a href = "LogoutServlet">ログアウト</a></td>
 			</tr>
 		</table>
