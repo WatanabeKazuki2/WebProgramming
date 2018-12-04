@@ -6,6 +6,7 @@
 <head>
 	<meta charset="UTF-8">
 	<link rel="stylesheet" href="css/UserUpdate.css">
+	<link rel="stylesheet" href="css/UserEntry.css">
 	<title>Update</title>
 </head>
 	<body>

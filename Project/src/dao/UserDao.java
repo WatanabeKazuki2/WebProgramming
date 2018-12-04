@@ -231,10 +231,10 @@ public class UserDao {
 
 
     /**
-     * 全てのユーザ情報を取得する
+     * 検索したユーザ情報を取得する
      * @return
      */
-    public List<User> findAll(String loginIdData,String nameData,Date birthDateData) {
+    public List<User> findAll(String loginIdData,String nameData,String birthDateData,String birthDateData2) {
         Connection conn = null;
         List<User> userList = new ArrayList<User>();
 
@@ -245,20 +245,26 @@ public class UserDao {
             // SELECT文を準備
             // TODO: 未実装：管理者以外を取得するようSQLを変更する
 
-
             String sql = "SELECT * FROM user WHERE id != 1 ";
 
             if(!loginIdData.isEmpty()) {
-            	sql += ",login_id="+loginIdData ;
+            	sql += " AND login_id= '"+loginIdData + "'";
             }
 
             if(!nameData.isEmpty()) {
-            	sql += ",name %"+ nameData + "%";
+            	sql += " AND name LIKE '%"+ nameData + "%'";
             }
 
-            if(birthDateData.isEmpty()) {
-
+            if(!birthDateData.isEmpty()) {
+            	Date birth = Date.valueOf(birthDateData);
+            	sql += " AND birth_date >= '" + birth + "'";
             }
+
+            if(!birthDateData2.isEmpty()) {
+            	Date birth2 = Date.valueOf(birthDateData2);
+            	sql += " AND birth_date <= '" + birth2 + "'";
+            }
+
 
              // SELECTを実行し、結果表を取得
             Statement stmt = conn.createStatement();
@@ -302,31 +308,52 @@ public class UserDao {
     }
 
     //更新用メソッド
-	public void updateuser(String name, String password, String birthDate, int id) {
-		// TODO 自動生成されたメソッド・スタブ
-		Connection conn =  DBManager.getConnection();
+    public void updateuser(String name, String password, String birthDate, int id) {
+    	// TODO 自動生成されたメソッド・スタブ
+    	Connection conn =  DBManager.getConnection();
+
+    	if(password.equals("")) {
+    	//UPDATE文を準備
+    	String sql =  "UPDATE user SET name = ?,birth_date=?,update_date = now() WHERE id = ?";
 
 
-		//UPDATE文を準備
-		String sql =  "UPDATE user SET name = ?,password = ?,birth_date=?,update_date = now() WHERE id = ?";
+    	try {
+    		//UPDATE文に値をセット
+    		PreparedStatement pStmt = conn.prepareStatement(sql);
+    		pStmt.setString(1, name);
+    		pStmt.setString(2, birthDate);
+    		pStmt.setInt(3, id);
+
+    		pStmt.executeUpdate();
+
+    		pStmt.close();
+
+    	} catch (SQLException  e) {
+    		e.printStackTrace();
+    	}
+    	}else {
+
+    		//UPDATE文を準備
+    		String sql =  "UPDATE user SET name = ?,password = ?,birth_date=?,update_date = now() WHERE id = ?";
 
 
-		try {
-			//UPDATE文に値をセット
-			PreparedStatement pStmt = conn.prepareStatement(sql);
-			pStmt.setString(1, name);
-			pStmt.setString(2, UserEntryServlet.angou(password));
-			pStmt.setString(3, birthDate);
-			pStmt.setInt(4, id);
+    		try {
+    			//UPDATE文に値をセット
+    			PreparedStatement pStmt = conn.prepareStatement(sql);
+    			pStmt.setString(1, name);
+    			pStmt.setString(2, UserEntryServlet.angou(password));
+    			pStmt.setString(3, birthDate);
+    			pStmt.setInt(4, id);
 
-			pStmt.executeUpdate();
+    			pStmt.executeUpdate();
 
-			pStmt.close();
-		} catch (SQLException | NoSuchAlgorithmException e) {
-			e.printStackTrace();
-		}
+    			pStmt.close();
 
-	}
+    		} catch (SQLException | NoSuchAlgorithmException e) {
+    			e.printStackTrace();
+    		}
+    	}
+    }
 
 
 

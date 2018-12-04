@@ -21,12 +21,12 @@ import model.User;
 public class UserListServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public UserListServlet() {
-        super();
-    }
+	/**
+	 * @see HttpServlet#HttpServlet()
+	 */
+	public UserListServlet() {
+		super();
+	}
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
@@ -38,16 +38,16 @@ public class UserListServlet extends HttpServlet {
 			response.sendRedirect("LoginServlet");
 		}else {
 
-		// ユーザ一覧情報を取得
-		UserDao userDao = new UserDao();
-		List<User> userList = userDao.findAll();
+			// ユーザ一覧情報を取得
+			UserDao userDao = new UserDao();
+			List<User> userList = userDao.findAll();
 
-		// リクエストスコープにユーザ一覧情報をセット
-		request.setAttribute("userList", userList);
+			// リクエストスコープにユーザ一覧情報をセット
+			request.setAttribute("userList", userList);
 
-		// ユーザ一覧のjspにフォワード
-		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/userList.jsp");
-		dispatcher.forward(request, response);
+			// ユーザ一覧のjspにフォワード
+			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/userList.jsp");
+			dispatcher.forward(request, response);
 		}
 	}
 
@@ -56,13 +56,25 @@ public class UserListServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO  未実装：検索処理全般
-		 request.setCharacterEncoding("UTF-8");
+		request.setCharacterEncoding("UTF-8");
 
-		 //テキスト内の文字を持ってくる
-		 String loginId = request.getParameter("loginId");
-		 String name = request.getParameter("userName");
-		 String birthDate = request.getParameter("birthDate");
-		 String birthDate2 = request.getParameter("birthDate2");
+		UserDao userDao = new UserDao();
+
+
+		String loginId = request.getParameter("loginId");
+		String userName = request.getParameter("userName");
+		String birthDate = request.getParameter("birthDate");
+		String birthDate2 = request.getParameter("birthDate2");
+
+		//検索表示のDaoメソッド
+		List<User> userList = userDao.findAll(loginId, userName, birthDate, birthDate2);
+
+		//リクエストスコープに情報をセット
+		request.setAttribute("userList", userList);
+
+		// ユーザ一覧のjspにフォワード
+		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/userList.jsp");
+		dispatcher.forward(request, response);
 
 
 

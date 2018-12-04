@@ -71,7 +71,7 @@ public class UserUpdateServlet extends HttpServlet {
 
 
 		//入力ミスの条件文
-		if( name.equals("") || password.equals("") || birthDate.equals("")|| !(password.equals(password2))){
+		if( name.equals("") || birthDate.equals("")|| !(password.equals(password2))){
 			request.setAttribute("errMsg", "入力された内容は正しくありません");
 			// ログインjspにフォワード
 			doGet(request, response);

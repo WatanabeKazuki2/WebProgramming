@@ -30,6 +30,7 @@
 				<tr>
 					<td>生年月日</td>
 					<td><input type ="date" name ="birthDate" birthDate = "生年月日">～<input type ="date"  name = "birthDate2" bithdate2 = "生年月日"></td>
+			<td class = "UserList"><input type = "submit" value = "検索"></td>
 				</tr>
 			</table>
 			<table border = "1" class = style>
@@ -42,6 +43,8 @@
 				</tr>
 			</thead>
 				<tbody>
+				<tr>
+			</tr>
 				<c:forEach var = "use" items = "${userList}">
 				<input type = "hidden" name = "id" id = {use.id}>
 				<tr>
@@ -68,7 +71,6 @@
 				</c:forEach>
 			</tbody>
 			</table>
-			<p class = "position"><input type = "submit" value = "検索"></p>
 		</form>
 	</body>
 </html>

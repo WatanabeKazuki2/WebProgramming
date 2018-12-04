@@ -5,11 +5,17 @@
 <html>
 <head>
 	<meta charset="UTF-8">
-	<link rel="stylesheet" href="css/login.css">
+	<link rel="stylesheet" href="css/login.css" >
+	<link rel= "stylesheet" href="css/UserEntry.css">
 	<title>ログイン</title>
 </head>
 	<body>
 		<h1 class="login">ログイン画面</h1>
+		<c:if test="${errMsg != null}" >
+	    <div class="UserEntry color">
+		  ${errMsg}
+		</div>
+		</c:if>
 			<form action="LoginServlet" method="post">
 				<table class="style">
 					<tr>
